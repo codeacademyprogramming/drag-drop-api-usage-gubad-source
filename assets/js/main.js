@@ -1,7 +1,6 @@
-
 // TODO ITEM CODE
-// const todoItems = [...document.querySelectorAll('.todo-item')];
-// const zones = Array.from(document.querySelectorAll('.drop-zone'));
+const todoItems = [...document.querySelectorAll(".todo-item")];
+const zones = Array.from(document.querySelectorAll(".drop-zone"));
 
 // todoItems.forEach(todoItem => {
 //     todoItem.addEventListener('dragstart', (e) => {
@@ -24,11 +23,13 @@
 
 //     zone.addEventListener('dragover', (e) => {
 //         e.preventDefault();
+//         console.log('dragover');
 //     })
 
 //     zone.addEventListener('dragleave', (e) => {
 //         e.preventDefault();
-//         zone.style.backgroundColor = 'initial';
+//         zone.style.backgroundColor = 'red';
+//         console.log('dragleave');
 //     });
 
 //     zone.addEventListener('drop', (e) => {
@@ -37,72 +38,81 @@
 //         const draggedElement = document.getElementById(draggedElementId);
 //         zone.prepend(draggedElement);
 //         zone.style.backgroundColor = 'initial';
+//         console.log('drop');
 //     });
 // })
 
+todoItems.forEach((elem) => {
+  elem.addEventListener("dragstart", (e) => {
+  e.dataTransfer.setData('text',e.target.id);
+  });
+//   elem.addEventListener("dragend", () => {
+//     console.log("dragended");
+//   });
+});
+
+
+zones.forEach((elem) => {
+//   elem.addEventListener("dragenter", (e) => {
+//     e.preventDefault();
+//   });
+  elem.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+
+//   elem.addEventListener("dragleave", (e) => {
+//     e.preventDefault();
+//   });
+  elem.addEventListener("drop", (e) => {
+    e.preventDefault();
+   const dropElement=e.dataTransfer.getData('text');
+   const dropElementId=document.getElementById(dropElement);
+   elem.prepend(dropElementId)
+  });
+});
 
 // SHARIK-LER CODE
-const colorBoxes = document.querySelectorAll('span');
-const littleColorBoxes = document.querySelectorAll('.little-color-circle');
-const bigBox = document.querySelector('.result-color-circle');
+const colorBoxes = document.querySelectorAll("span");
+const littleColorBoxes = document.querySelectorAll(".little-color-circle");
+const bigBox = document.querySelector(".result-color-circle");
 
-colorBoxes.forEach(colorBox => {
-    const redTone = colorBox.getAttribute('data-red');
-    const greenTone = colorBox.getAttribute('data-green');
-    const blueTone = colorBox.getAttribute('data-blue');
+colorBoxes.forEach((colorBox) => {
+  const redTone = colorBox.getAttribute("data-red");
+  const greenTone = colorBox.getAttribute("data-green");
+  const blueTone = colorBox.getAttribute("data-blue");
 
-    colorBox.style.backgroundColor = `rgb(${redTone},${greenTone},${blueTone})`;
+  colorBox.style.backgroundColor = `rgb(${redTone},${greenTone},${blueTone})`;
 });
 
-
-littleColorBoxes.forEach(littleColorBox => {
-    littleColorBox.addEventListener('dragstart', (e) => {
-        const red = +littleColorBox.getAttribute('data-red');
-        const green = +littleColorBox.getAttribute('data-green');
-        const blue = +littleColorBox.getAttribute('data-blue');
-        const data = {
-            red,
-            green,
-            blue
-        };
-        e.dataTransfer.setData('text', JSON.stringify(data));
-    });
+littleColorBoxes.forEach((littleColorBox) => {
+  littleColorBox.addEventListener("dragstart", (e) => {
+    const red = +littleColorBox.getAttribute("data-red");
+    const green = +littleColorBox.getAttribute("data-green");
+    const blue = +littleColorBox.getAttribute("data-blue");
+    const data = {
+      red,
+      green,
+      blue,
+    };
+    e.dataTransfer.setData("text", JSON.stringify(data));
+  });
 });
 
-bigBox.addEventListener('dragover', (e) => {
-    e.preventDefault();
+bigBox.addEventListener("dragover", (e) => {
+  e.preventDefault();
 });
 
-bigBox.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const { red, green, blue } = JSON.parse(e.dataTransfer.getData('text'));
-    const bigBoxRed = +bigBox.getAttribute('data-red');
-    const bigBoxGreen = +bigBox.getAttribute('data-green');
-    const bigBoxBlue = +bigBox.getAttribute('data-blue');
+bigBox.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const { red, green, blue } = JSON.parse(e.dataTransfer.getData("text"));
+  const bigBoxRed = +bigBox.getAttribute("data-red");
+  const bigBoxGreen = +bigBox.getAttribute("data-green");
+  const bigBoxBlue = +bigBox.getAttribute("data-blue");
 
-    const resultRed = (red + bigBoxRed) / 2;
-    const resultGreen = (green + bigBoxGreen) / 2;
-    const resultBlue = (blue + bigBoxBlue) / 2;
+  const resultRed = (red + bigBoxRed) / 2;
+  const resultGreen = (green + bigBoxGreen) / 2;
+  const resultBlue = (blue + bigBoxBlue) / 2;
 
-    bigBox.style.backgroundColor = `rgb(${resultRed}, ${resultGreen}, ${resultBlue})`;
+  bigBox.style.backgroundColor = `rgb(${resultRed}, ${resultGreen}, ${resultBlue})`;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
