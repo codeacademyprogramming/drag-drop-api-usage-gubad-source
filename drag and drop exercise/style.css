@@ -1,0 +1,33 @@
+.drop-area{
+    width: 600px;
+    height: 360px;
+    border-radius: 5%;
+    border-style: dashed;
+    border-color: green;
+margin-top: 6px;
+position: relative;
+}
+.image-body img{
+    width: 300px;
+    height: 400px;
+}
+.drop-area.active{
+    background-color: wheat;
+}
+button{
+    position: absolute;
+    top: 50%;
+    left: 42%;
+}
+.image-body{
+    display: flex;
+    flex-direction: column;
+}
+.icon{
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
